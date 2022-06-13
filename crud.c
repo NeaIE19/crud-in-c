@@ -24,17 +24,23 @@ void displaydata(data[], int);
 void deletedata(data[], int);
 int createData(data[], int, int);
 void editingdata(data[], int);
+void delete_Element(data[], int);
 
 int main (int argc, char *argv[]){
   int p = 0;
-  data Person[4]; int menuinput; /* int p = 0; */
+  data Person[20]; int menuinput; /* int p = 0; */
   do {
-    menu();scanf("%d", &menuinput);getchar(); printf("\n");
+    menu();
+    // system("clear");
+    scanf("%d", &menuinput);
     system("clear");
+    getchar();
+    printf("\n");
+    // system("clear");
     switch (menuinput) {
       case 1:
         p += createData(Person, p, 5);
-        if(p);
+        // if(p);
         break;
       case 2:
         displaydata(Person, p);
@@ -44,6 +50,7 @@ int main (int argc, char *argv[]){
         break;
       case 4:
         deletedata(Person, p);
+        // delete_Element(Person, p);
         break;
       case 5:
         editingdata(Person, p);
@@ -78,7 +85,7 @@ void displaydata(data storePerson[], int data){
   FILE *file = fopen("data.txt", "w+");
   for (int i = 0; i < data; i++) {
     printf("[%d] name : %s \t\t\t address : %s \t\t\t school Name :%s\n",
-        i +1, storePerson[i].name,
+        i + 1, storePerson[i].name,
         storePerson[i].address,
         storePerson[i].schoolName); 
     // me);
@@ -95,7 +102,7 @@ void findingdata(data datastorage[], int data){
   printf("enter the name do you want :");
   scanf(" %50[^\n]s", str_tofind);
   for (int i = 0; i < data; i++) {
-    if (strcmp(datastorage[i].name , str_tofind) == 0){
+    if (strcmp(datastorage[i].name, str_tofind) == 0){
       found = 1;
       printf("string %s find in row %d\n", datastorage[i].name, i + 1);
       // found = 1;
@@ -104,19 +111,22 @@ void findingdata(data datastorage[], int data){
 }
 
 void deletedata(data storedata[], int data){
-  int id;
-  displaydata(storedata, data);
-  printf("enter element do you want: ");
-  scanf("%d", &id);
-  if (id < 0 || id > data){
-    puts("invalid entering");
-  }else {int i = 0;
-    // free(storedata[id]);
-    for (; i < data; i++) {
-      storedata[i] = storedata[i + 1];
-    }
-    id--;
+  int id = 0;
+  char *deletename; //find name to delete all data was it
+  printf("enter the name you have to delete it :");
+  scanf(" %50[^\n]s", deletename);
+
+  for (int i = 0; i < data; i++) {
+    if (strcmp(storedata[i].name, deletename) == 0) {
+      strcpy(storedata[i].name, "\0");
+      strcpy(storedata[i].address, "\0");
+      strcpy(storedata[i].schoolName, "\0");
+      i--;
+      break;
+    }else printf("cannot find the name\n");
+    // storedata[i] = storedata[i + 1];
   }
+  return;
 }
 
 void editingdata(data storagename[], int data){
@@ -128,9 +138,26 @@ void editingdata(data storagename[], int data){
       printf("put your name for edit: "); 
       scanf(" %50[^\n]s", destname);
       strcpy(storagename[i].name, destname); 
+      break;
     }else {
       puts("name invalid name not exist");
     }
   }
 }
+
+void delete_Element(data storedata[], int data){
+  int elPos;
+  printf("enter position : "); scanf("%d", &elPos);
+  if (elPos <= 0 || elPos > data + 1) {
+    puts("invalid entering");
+  }else {
+    for (int i = elPos - 1; i < data - 1; i++) {
+      storedata[i - 1] = storedata[i];
+      // elPos--;
+    }
+  }
+}
+
+
+
 
