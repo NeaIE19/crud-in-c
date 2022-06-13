@@ -24,7 +24,7 @@ void displaydata(data[], int);
 void deletedata(data[], int);
 int createData(data[], int, int);
 void editingdata(data[], int);
-void delete_Element(data[], int);
+
 
 int main (int argc, char *argv[]){
   int p = 0;
@@ -40,8 +40,7 @@ int main (int argc, char *argv[]){
     switch (menuinput) {
       case 1:
         p += createData(Person, p, 5);
-        // if(p);
-        break;
+       break;
       case 2:
         displaydata(Person, p);
         break;
@@ -49,8 +48,7 @@ int main (int argc, char *argv[]){
         findingdata(Person, p);
         break;
       case 4:
-        deletedata(Person, p);
-        // delete_Element(Person, p);
+        deletedata(Person, p);        
         break;
       case 5:
         editingdata(Person, p);
@@ -144,20 +142,4 @@ void editingdata(data storagename[], int data){
     }
   }
 }
-
-void delete_Element(data storedata[], int data){
-  int elPos;
-  printf("enter position : "); scanf("%d", &elPos);
-  if (elPos <= 0 || elPos > data + 1) {
-    puts("invalid entering");
-  }else {
-    for (int i = elPos - 1; i < data - 1; i++) {
-      storedata[i - 1] = storedata[i];
-      // elPos--;
-    }
-  }
-}
-
-
-
 
